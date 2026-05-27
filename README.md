@@ -38,3 +38,11 @@ WordCards 是一個使用 C# Windows Forms 製作的單字卡學習系統，主�
 ### 7. 查看易忘單字功能
 
 按下「查看易忘單字」按鈕後，系統會讀取 `HardWords.txt`，並只顯示易忘單字清單。再次按下按鈕後，會切換回全部單字清單。
+
+<img width="653" height="379" alt="image" src="https://github.com/user-attachments/assets/fc176d33-41c7-4fb4-8eda-079c0d87459e" />
+
+<img width="652" height="373" alt="image" src="https://github.com/user-attachments/assets/85801c5b-c18b-4d51-b0cd-2b795d1eb7ca" />
+
+<img width="651" height="374" alt="image" src="https://github.com/user-attachments/assets/d519c52b-b33d-4267-bca2-17a99a048314" />
+
+
