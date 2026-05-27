@@ -41,6 +41,8 @@
             this.txtPhonogram = new System.Windows.Forms.TextBox();
             this.txtWord = new System.Windows.Forms.TextBox();
             this.timPlayer = new System.Windows.Forms.Timer(this.components);
+            this.btnAddHardWord = new System.Windows.Forms.Button();
+            this.btnShowHardWords = new System.Windows.Forms.Button();
             this.sssWord.SuspendLayout();
             this.palMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
@@ -80,6 +82,8 @@
             // palMain
             // 
             this.palMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(254)))), ((int)(((byte)(242)))));
+            this.palMain.Controls.Add(this.btnShowHardWords);
+            this.palMain.Controls.Add(this.btnAddHardWord);
             this.palMain.Controls.Add(this.txtHelp);
             this.palMain.Controls.Add(this.btnAutoPlay);
             this.palMain.Controls.Add(this.picLogo);
@@ -99,7 +103,7 @@
             this.txtHelp.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtHelp.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.txtHelp.ForeColor = System.Drawing.Color.Red;
-            this.txtHelp.Location = new System.Drawing.Point(324, 257);
+            this.txtHelp.Location = new System.Drawing.Point(324, 279);
             this.txtHelp.Multiline = true;
             this.txtHelp.Name = "txtHelp";
             this.txtHelp.Size = new System.Drawing.Size(86, 40);
@@ -179,6 +183,28 @@
             this.timPlayer.Interval = 2000;
             this.timPlayer.Tick += new System.EventHandler(this.timPlayer_Tick);
             // 
+            // btnAddHardWord
+            // 
+            this.btnAddHardWord.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(254)))), ((int)(((byte)(242)))));
+            this.btnAddHardWord.Location = new System.Drawing.Point(324, 203);
+            this.btnAddHardWord.Name = "btnAddHardWord";
+            this.btnAddHardWord.Size = new System.Drawing.Size(86, 31);
+            this.btnAddHardWord.TabIndex = 3;
+            this.btnAddHardWord.Text = "加入易忘單字";
+            this.btnAddHardWord.UseVisualStyleBackColor = false;
+            this.btnAddHardWord.Click += new System.EventHandler(this.btnAddHardWord_Click);
+            // 
+            // btnShowHardWords
+            // 
+            this.btnShowHardWords.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(254)))), ((int)(((byte)(242)))));
+            this.btnShowHardWords.Location = new System.Drawing.Point(324, 240);
+            this.btnShowHardWords.Name = "btnShowHardWords";
+            this.btnShowHardWords.Size = new System.Drawing.Size(86, 33);
+            this.btnShowHardWords.TabIndex = 6;
+            this.btnShowHardWords.Text = "查看易忘單字";
+            this.btnShowHardWords.UseVisualStyleBackColor = false;
+            this.btnShowHardWords.Click += new System.EventHandler(this.btnShowHardWords_Click);
+            // 
             // frmWordCards
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -218,6 +244,8 @@
         private System.Windows.Forms.TextBox txtHelp;
         private System.Windows.Forms.Button btnAutoPlay;
         private System.Windows.Forms.Timer timPlayer;
+        private System.Windows.Forms.Button btnAddHardWord;
+        private System.Windows.Forms.Button btnShowHardWords;
     }
 }
 

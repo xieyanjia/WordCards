@@ -95,6 +95,7 @@
     <None Include="Resources\WordCards_Logo.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="HardWords.txt" />
     <Content Include="Sound\A\A-list.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

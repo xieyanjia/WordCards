@@ -25,11 +25,17 @@ namespace WordCards
         WindowsMediaPlayer wmp = new WindowsMediaPlayer();
 
         string strWordFile = "WordCards.txt"; // 單字檔名
+        bool isHardWordMode = false; // 是否正在查看易忘單字
 
         /// <summary>
         /// 是否自動播放
         /// </summary>
         bool isPlay = false;
+
+        /// <summary>
+        /// 易忘單字檔名
+        /// </summary>
+        string strHardWordFile = "HardWords.txt";
 
         public frmWordCards()
         {
@@ -231,6 +237,127 @@ namespace WordCards
                 // 儲存單字
                 _WordList.SaveToFile(strWordFile);
 
+            }
+        }
+
+        private void btnAddHardWord_Click(object sender, EventArgs e)
+        {
+            if (isHardWordMode == true)
+            {
+                MessageBox.Show("目前已經在查看易忘單字");
+                return;
+            }
+
+            if (lstWordList.SelectedIndex < 0)
+            {
+                MessageBox.Show("請先選擇一個單字");
+                return;
+            }
+
+            WordItem word = _WordList[lstWordList.SelectedIndex];
+
+            // 使用 WordItem 原本的格式輸出，避免欄位順序錯誤
+            string line = word.ToLineString();
+
+            if (File.Exists(strHardWordFile))
+            {
+                string[] lines = File.ReadAllLines(strHardWordFile, Encoding.UTF8);
+
+                foreach (string item in lines)
+                {
+                    if (item.StartsWith(word.Word + "\t"))
+                    {
+                        MessageBox.Show("這個單字已經在易忘單字清單中了");
+                        return;
+                    }
+                }
+            }
+
+            File.AppendAllText(strHardWordFile, line + Environment.NewLine, Encoding.UTF8);
+
+            tsslMessage.Text = $"已加入易忘單字：{word.Word}";
+            MessageBox.Show($"已將 {word.Word} 加入易忘單字");
+        }
+
+        private void btnShowHardWords_Click(object sender, EventArgs e)
+        {
+            // 如果正在自動播放，先停止
+            if (isPlay == true)
+            {
+                btnAutoPlay.PerformClick();
+            }
+
+            // 如果目前不是易忘單字模式，就切換成查看易忘單字
+            if (isHardWordMode == false)
+            {
+                // 判斷易忘單字檔是否存在
+                if (!File.Exists(strHardWordFile))
+                {
+                    MessageBox.Show("目前還沒有易忘單字", "提示",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // 讀取易忘單字檔
+                string[] lines = File.ReadAllLines(strHardWordFile, Encoding.UTF8);
+
+                // 判斷檔案是否是空的
+                if (lines.Length == 0)
+                {
+                    MessageBox.Show("目前還沒有易忘單字", "提示",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // 清空原本單字清單，改載入易忘單字
+                _WordList.Clear();
+                _WordList.LoadFromStringArray(lines);
+
+                // 更新畫面清單
+                UpdateWordList();
+
+                // 顯示第一個易忘單字
+                if (_WordList.Count > 0)
+                {
+                    lstWordList.SelectedIndex = 0;
+                    ShowWord(_WordList[0]);
+                }
+
+                // 更新狀態
+                isHardWordMode = true;
+                btnShowHardWords.Text = "查看全部單字";
+                tsslMessage.Text = $"易忘單字數量：{_WordList.Count}";
+            }
+            else
+            {
+                // 回到全部單字模式
+                if (!File.Exists(strWordFile))
+                {
+                    MessageBox.Show($"找不到單字檔\n{strWordFile}", "錯誤",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // 重新讀取全部單字
+                string[] lines = File.ReadAllLines(strWordFile, Encoding.UTF8);
+
+                _WordList.Clear();
+                _WordList.LoadFromStringArray(lines);
+
+                // 更新畫面清單
+                UpdateWordList();
+
+                // 顯示第一個單字
+                if (_WordList.Count > 0)
+                {
+                    lstWordList.SelectedIndex = 0;
+                    ShowWord(_WordList[0]);
+                }
+
+                // 更新狀態
+                isHardWordMode = false;
+                btnShowHardWords.Text = "查看易忘單字";
+                tsslMessage.Text = $"單字數量：{_WordList.Count}";
             }
         }
     }
